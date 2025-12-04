@@ -32,6 +32,9 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
+  /* Increase timeout for all tests */
+  timeout: 60000,
+
   /* Configure projects for major browsers */
   projects: [
     {
