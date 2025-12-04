@@ -8,7 +8,7 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'NetID:' }).fill('A00325183');
   await page.getByRole('textbox', { name: 'NetID:' }).press('Tab');
   await page.getByRole('textbox', { name: 'Contraseña:' }).click();
-  await page.getByRole('textbox', { name: 'Contraseña:' }).fill('Luna123**');
+  await page.getByRole('textbox', { name: 'Contraseña:' }).fill('');
   await page.getByRole('textbox', { name: 'Contraseña:' }).press('Enter');
   
   // Wait for the login submission to complete
