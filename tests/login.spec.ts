@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from './pages/login';
 
 test('authentication flow reads credentials from env and asserts post-login', async ({ page }) => {
   const targetUrl = 'https://mycambrian.cambriancollege.ca/web/cambrian-home/student';
@@ -16,19 +17,24 @@ test('authentication flow reads credentials from env and asserts post-login', as
   await page.goto(targetUrl);
   await page.waitForLoadState('domcontentloaded');
 
-  // Locate form inputs by id (stable selectors)
-  const usernameInput = page.locator('#username');
-  const passwordInput = page.locator('#password');
-  const submitButton = page.locator('input[type="submit"]');
+  // Use LoginPage page object for interactions
+  const loginPage = new LoginPage(page);
 
-  // Proper waits for visibility (avoid arbitrary timeouts)
-  await usernameInput.waitFor({ state: 'visible', timeout: 15000 });
-  await passwordInput.waitFor({ state: 'visible', timeout: 15000 });
+  // Ensure inputs are visible
+  await page.locator(loginPage.usernameSelector).waitFor({ state: 'visible', timeout: 15000 });
+  await page.locator(loginPage.passwordSelector).waitFor({ state: 'visible', timeout: 15000 });
+
+  // Fill and assert values (immediate verification)
+  await loginPage.enterUsername(username);
+  await expect(page.locator(loginPage.usernameSelector)).toHaveValue(username);
+
+  await loginPage.enterPassword(password);
+  await expect(page.locator(loginPage.passwordSelector)).toHaveValue(password);
 
   // Submit the form and wait for the navigation to finish
   await Promise.all([
     page.waitForNavigation({ waitUntil: 'networkidle', timeout: 30000 }),
-    submitButton.click(),
+    loginPage.clickLoginButton(),
   ]);
 
   // After login submission, assert known post-login indicators
