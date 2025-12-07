@@ -67,27 +67,10 @@ test('student id card print page displays cc-card div after successful login and
 
   // Click the Student menu
   await studentIdPage.clickStudentMenu();
-//   await page.waitForLoadState('networkidle');
   await page.waitForLoadState('domcontentloaded');
-  
-  // Wait a bit for dynamic content to load
   await page.waitForTimeout(2000);
 
-  // Log all available links for debugging (with hrefs)
-  const allLinks = await studentIdPage.getAllLinks();
-  console.log('All available links on page:', allLinks);
-
-  // Check if the print barcode link exists (for debugging)
-  const linkExists = await studentIdPage.printBarcodeLinkExists();
-  console.log(`Print barcode link exists: ${linkExists}`);
-
-  if (!linkExists) {
-    // If link not found, log the full page text for inspection
-    const pageText = await studentIdPage.getAllPageText();
-    console.log('Page body text snippet:', pageText?.substring(0, 1000));
-  }
-
-  // Wait for and verify the print barcode link is visible (with longer timeout for dynamic loading)
+  // Wait for the print barcode link to be visible
   await studentIdPage.waitForPrintBarcodeLink(30000);
 
   // Handle new page and click print barcode link
