@@ -3,6 +3,7 @@ import { Page } from '@playwright/test';
 export class StudentIdPage {
   readonly page: Page;
   readonly studentMenuSelector = 'a[href="https://mycambrian.cambriancollege.ca/web/cambrian-home/student"][role="menuitem"]';
+  readonly iframeId = '_48_INSTANCE_TJ5WDS9opRF5_iframe';
   readonly cardDivSelector = 'div.cc-card';
   readonly expectedCardUrl = 'https://cf.cambriancollege.ca/student_barcode/print_barcode.cfm';
 
@@ -14,9 +15,17 @@ export class StudentIdPage {
     await this.page.locator(this.studentMenuSelector).click();
   }
 
+  async getIframeLocator() {
+    // Wait for the iframe to be present
+    const iframeLocator = this.page.frameLocator(`#${this.iframeId}`);
+    await this.page.locator(`#${this.iframeId}`).waitFor({ state: 'attached', timeout: 15000 });
+    return iframeLocator;
+  }
+
   async getPrintBarcodeLinkLocator() {
-    // Look for the link by its href attribute (more reliable than text)
-    return this.page.locator('a[href*="student_barcode/print_barcode"]');
+    // Look for the link inside the iframe by its href attribute
+    const iframeLocator = await this.getIframeLocator();
+    return iframeLocator.locator('a[href*="student_barcode/print_barcode"]');
   }
 
   async getAllPageText(): Promise<string | null> {
