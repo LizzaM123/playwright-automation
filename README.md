@@ -1,2 +1,2 @@
-# playwright-automation
+# MyCambrian Playwright Automation Project (POM Framework)
 Playwright Automation
