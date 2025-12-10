@@ -146,25 +146,56 @@ npx playwright show-report
 
 ---
 
-## CI/CD – GitHub Actions
+## Testing Best Practices
 
-This project includes a GitHub Actions workflow that:
+### AAA Pattern (Arrange-Act-Assert)
+All tests in this project follow the **AAA pattern**, a widely-used testing structure:
 
-- Installs dependencies  
-- Installs Playwright browsers  
-- Runs the full test suite  
-- Uploads Playwright reports (HTML report)  
+1. **Arrange** - Set up the test conditions
+   - Load credentials from environment variables
+   - Navigate to the target page
+   - Initialize page objects
+   - Wait for elements to be ready
 
-Workflow file:  
-`.github/workflows/playwright.yml`
+2. **Act** - Perform the action being tested
+   - Enter username and password
+   - Click the login button
+   - Navigate to a specific page
+   - Submit a form
+
+3. **Assert** - Verify the expected outcome
+   - Check if login was successful
+   - Verify correct page loaded
+   - Confirm elements are visible
+   - Validate expected content appears
+
+**Example from login.spec.ts:**
+```typescript
+// ARRANGE - Set up test
+const username = process.env.MYCAMBRIAN_USERNAME;
+const password = process.env.MYCAMBRIAN_PASSWORD;
+await page.goto(targetUrl);
+const loginPage = new LoginPage(page);
+
+// ACT - Perform login
+await loginPage.enterUsername(username);
+await loginPage.enterPassword(password);
+await loginPage.clickLoginButton();
+
+// ASSERT - Verify success
+await expect(successBanner).toBeVisible();
+```
+
+This pattern makes tests easy to read, maintain, and debug.
 
 ---
 
 ## Technologies Used
 - **Playwright** (JavaScript/TypeScript)
 - **Page Object Model (POM)**
-- **GitHub Actions**
+- **AAA Testing Pattern** (Arrange-Act-Assert)
 - **Node.js**
+- **dotenv** (Environment variables)
 
 ---
 
@@ -174,4 +205,9 @@ This project is created for academic purposes and not affiliated with Cambrian C
 ---
 
 ## Summary
-This framework demonstrates professional-level automation using Playwright with POM, covering multiple user flows on the MyCambrian web portal. The project follows best practices including reusable page objects, environment variables, structured tests, and CI integration.
+This framework demonstrates professional-level automation using Playwright with POM, covering multiple user flows on the MyCambrian web portal. The project follows best practices including:
+
+- **Page Object Model (POM)** - Organized code with reusable page classes
+- **AAA Testing Pattern** - All tests follow Arrange-Act-Assert structure for clarity
+- **Environment Variables** - Secure credential management using dotenv
+- **Structured Tests** - Clean, maintainable test organization
