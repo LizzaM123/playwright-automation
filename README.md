@@ -73,7 +73,7 @@ playwright-automation/
 
 ---
 
-## Installation & Setup
+## Installation and Setup
 
 ### 1️ Install Dependencies
 ```
