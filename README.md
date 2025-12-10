@@ -75,43 +75,73 @@ playwright-automation/
 
 ## Installation and Setup
 
-### 1️ Install Dependencies
-```
+### 1️⃣ Install Dependencies
+```bash
 npm install
 ```
 
-### 2️ Install Playwright Browsers
+### 2️⃣ Install dotenv Package
+The project uses `dotenv` to load environment variables from the `.env` file:
+```bash
+npm install dotenv
 ```
+
+### 3️⃣ Install Playwright Browsers
+```bash
 npx playwright install
 ```
 
-### 3️ Create `.env` File  
-Inside **tests/** create a file named `.env` with:
+### 4️⃣ Create `.env` File  
+Inside **tests/** create a file named `.env` with your credentials:
 
-```
+```env
 MYCAMBRIAN_USERNAME=yourUsername
 MYCAMBRIAN_PASSWORD=yourPassword
 ```
 
 >  *Never commit real credentials to GitHub.*
 
+### 5️⃣ Configuration
+The `playwright.config.ts` file is configured to automatically load environment variables from `tests/.env`:
+
+```typescript
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, 'tests/.env') });
+```
+
 ---
 
 ## Running Tests
 
 ### Run all tests:
-```
+```bash
 npx playwright test
 ```
 
-### Run a specific test:
-```
+### Run a specific test (e.g., login):
+```bash
 npx playwright test tests/login.spec.ts
 ```
 
-### Run with UI mode:
+### Run tests in headed mode (see the browser):
+```bash
+npx playwright test --headed
 ```
+
+### Run a specific test in headed mode:
+```bash
+npx playwright test tests/login.spec.ts --headed
+```
+
+### Run with UI mode (interactive):
+```bash
 npx playwright test --ui
+```
+
+### View the last test report:
+```bash
+npx playwright show-report
 ```
 
 ---
