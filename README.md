@@ -1,2 +1,147 @@
 # MyCambrian Playwright Automation Project (POM Framework)
-Playwright Automation
+
+## Overview
+This project is an automated testing framework built using **Playwright** with the **Page Object Model (POM)** design pattern.  
+The automation suite tests the core student features of the **MyCambrian** web portal, including:
+
+- Login  
+- Moodle navigation  
+- Dashboard verification  
+- Grade Report access  
+- Student ID card print page  
+
+The project follows clean coding standards and real-world automation best practices.
+
+---
+
+## Team Members
+- Lizza Martinez - A00325183   
+- Anthony Mbanu - A00322175  
+
+---
+
+## Project Structure (POM)
+
+```
+playwright-automation/
+│
+├── tests/                    # All test files
+│   ├── dashboard.spec.ts
+│   ├── login.spec.ts
+│   ├── gradeReport.spec.ts
+│   ├── moodleNavigation.spec.ts
+│   ├── studentId.spec.ts
+│   └── example.spec.ts
+│
+├── pages/                    # Page Object classes
+│   ├── login.ts
+│   ├── moodle.ts
+│   ├── gradeReport.ts
+│   ├── studentId.ts
+│
+├── utils/                    # Helpers (if needed)
+│
+├── playwright.config.ts      # Playwright configuration
+├── package.json              # Project dependencies
+└── README.md
+```
+
+---
+
+## Features Automated
+
+### 1. **Login Flow**
+- Uses environment variables (`MYCAMBRIAN_USERNAME`, `MYCAMBRIAN_PASSWORD`)
+- Validates successful login based on UI indicators
+
+### 2. **Moodle Navigation**
+- Navigates from MyCambrian → Moodle (opens in new tab)
+- Verifies correct Moodle URL loads
+
+### 3. **Dashboard Validation**
+- Opens Moodle dashboard page
+- Verifies Dashboard header and Timeline widget
+
+### 4. **Grade Report**
+- Navigates to Grade Report page
+- Submits the form
+- Validates the returned grade report message
+
+### 5. **Student ID Print Page**
+- Opens Student menu → Print Barcode page
+- Verifies `div.cc-card` element is displayed
+
+---
+
+## Installation & Setup
+
+### 1️ Install Dependencies
+```
+npm install
+```
+
+### 2️ Install Playwright Browsers
+```
+npx playwright install
+```
+
+### 3️ Create `.env` File  
+Inside **tests/** create a file named `.env` with:
+
+```
+MYCAMBRIAN_USERNAME=yourUsername
+MYCAMBRIAN_PASSWORD=yourPassword
+```
+
+>  *Never commit real credentials to GitHub.*
+
+---
+
+## Running Tests
+
+### Run all tests:
+```
+npx playwright test
+```
+
+### Run a specific test:
+```
+npx playwright test tests/login.spec.ts
+```
+
+### Run with UI mode:
+```
+npx playwright test --ui
+```
+
+---
+
+## CI/CD – GitHub Actions
+
+This project includes a GitHub Actions workflow that:
+
+- Installs dependencies  
+- Installs Playwright browsers  
+- Runs the full test suite  
+- Uploads Playwright reports (HTML report)  
+
+Workflow file:  
+`.github/workflows/playwright.yml`
+
+---
+
+## Technologies Used
+- **Playwright** (JavaScript/TypeScript)
+- **Page Object Model (POM)**
+- **GitHub Actions**
+- **Node.js**
+
+---
+
+## License
+This project is created for academic purposes and not affiliated with Cambrian College.
+
+---
+
+## Summary
+This framework demonstrates professional-level automation using Playwright with POM, covering multiple user flows on the MyCambrian web portal. The project follows best practices including reusable page objects, environment variables, structured tests, and CI integration.
