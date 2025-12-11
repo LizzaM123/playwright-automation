@@ -92,7 +92,7 @@ npx playwright install
 ```
 
 ### 4️⃣ Create `.env` File  
-Inside **tests/** create a file named `.env` with your credentials:
+Inside the **root directory** create a file named `.env` with your credentials:
 
 ```env
 MYCAMBRIAN_USERNAME=yourUsername
@@ -102,12 +102,12 @@ MYCAMBRIAN_PASSWORD=yourPassword
 >  *Never commit real credentials to GitHub.*
 
 ### 5️⃣ Configuration
-The `playwright.config.ts` file is configured to automatically load environment variables from `tests/.env`:
+The `playwright.config.ts` file is configured to automatically load environment variables from `.env`:
 
 ```typescript
 import dotenv from 'dotenv';
 import path from 'path';
-dotenv.config({ path: path.resolve(__dirname, 'tests/.env') });
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 ```
 
 ---
@@ -124,7 +124,9 @@ npx playwright test
 npx playwright test tests/login.spec.ts
 ```
 
-### Run tests in headed mode (see the browser):
+### Run tests in headed mode (see the browser - recommended for CAPTCHA):
+Running tests in headed mode allows you to see the browser window and manually solve any CAPTCHA that appears during login.
+
 ```bash
 npx playwright test --headed
 ```
@@ -132,7 +134,11 @@ npx playwright test --headed
 ### Run a specific test in headed mode:
 ```bash
 npx playwright test tests/login.spec.ts --headed
+npx playwright test tests/dashboard.spec.ts --headed
+npx playwright test tests/gradeReport.spec.ts --headed
 ```
+
+> **Note:** Use the `--headed` flag when you need to interact with CAPTCHA during login. The browser will stay open, allowing you to manually complete the CAPTCHA before the test continues.
 
 ### Run with UI mode (interactive):
 ```bash
