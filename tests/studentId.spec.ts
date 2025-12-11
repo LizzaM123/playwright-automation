@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/login';
 import { StudentIdPage } from './pages/studentId';
 
+// Logs into MyCambrian and navigates to the Student ID print barcode page through the Student menu.
+// Verifies the student ID card container element is visible on the page.
 test('student id card print page displays cc-card div after successful login and navigation', async ({ browser }) => {
   // Create a context to manage multiple pages
   const context = await browser.newContext();

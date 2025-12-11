@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/login';
 import { GradeReportPage } from './pages/gradeReport';
 
+// Logs into MyCambrian, navigates to the Student section, and submits the grade report form.
+// Verifies the grade report page displays the expected confirmation message.
 test('grade report submission displays expected message', async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();

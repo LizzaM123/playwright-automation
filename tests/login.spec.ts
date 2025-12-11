@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/login';
 
+// Authenticates a student by entering credentials from environment variables into the MyCambrian login page.
+// Verifies successful login by checking for post-login indicators like success banner or student menu.
 test('authentication flow reads credentials from env and asserts post-login', async ({ page }) => {
   const targetUrl = 'https://mycambrian.cambriancollege.ca/web/cambrian-home/student';
 

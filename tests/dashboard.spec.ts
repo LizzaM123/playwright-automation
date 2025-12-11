@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/login';
 import { MoodlePage } from './pages/moodle';
 
+// Logs into MyCambrian, opens Moodle in a new tab, then navigates to the Dashboard page.
+// Verifies the Dashboard page displays the correct heading and Timeline widget.
 test('navigate to moodle then to Dashboard and verify dashboard contents', async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();

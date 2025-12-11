@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/login';
 import { MoodlePage } from './pages/moodle';
 
+// Logs into MyCambrian and navigates to Moodle, which opens in a new browser tab.
+// Verifies the new tab successfully loads the correct Moodle URL.
 test('navigation to moodle after login opens new tab with correct url', async ({ browser }) => {
   // Create a context to manage multiple pages/tabs
   const context = await browser.newContext();
