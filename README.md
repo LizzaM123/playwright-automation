@@ -205,6 +205,17 @@ This pattern makes tests easy to read, maintain, and debug.
 
 ---
 
+## Dependencies
+
+### Production Dependencies
+- **dotenv** (^17.2.3) - Loads environment variables from `.env` file
+
+### Development Dependencies
+- **@playwright/test** (^1.57.0) - End-to-end testing framework
+- **@types/node** (^24.10.1) - TypeScript type definitions for Node.js
+
+---
+
 ## License
 This project is created for academic purposes and not affiliated with Cambrian College.
 
